@@ -2,6 +2,7 @@
 <div class="container">
   <div class="row mt-5">
       <div class="col-6">
+        <%if(otherUser.id == user.id){ %>
           <div>
               <p><strong>User Name</strong>: <%= user.userName %></p>
               <p><strong>Email</strong>: <%= user.email %></p>
@@ -25,6 +26,9 @@
               <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
             </form>
           </div>
+          <%}else {%>
+          <h2><%=otherUser.userName%></h2>
+          <%} %>
       </div>
       <div class="col-6">
         <ul class="row list-unstyled">

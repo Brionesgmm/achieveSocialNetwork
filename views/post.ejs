@@ -3,7 +3,7 @@
   <div class="row justify-content-center mt-5">
     <div class="col-6">
       <a href="/profile/<%= post.user%>">
-        <h2><%= post.user %></h2>
+        <h2><%= otherUser.userName %></h2>
       </a>
       <h2><%= post.title %></h2>
       <img class="img-fluid" src="<%= post.image%>" />
@@ -43,7 +43,9 @@
     <ul class="comments">
       <% for(var i=0; i<comments.length; i++) {%>
         <li class="">
+          <a href="/profile/<%= comments[i].user%>">
           <span><%= comments[i].userName%></span>
+          </a>
           <p><%= comments[i].comment%></p>
         </li>
       <% } %>

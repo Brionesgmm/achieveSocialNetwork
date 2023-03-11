@@ -7,10 +7,20 @@ const User = require("../models/User")
 module.exports = {
   getProfile: async (req, res) => {
     try {
+      const posts = await Post.find({ user: req.user.id });
+      const otherUser = await User.findById(req.user.id)
+      res.render("profile.ejs", { posts: posts, user: req.user, otherUser: otherUser });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getUsersProfile: async (req, res) => {
+    try {
       console.log(res)
       const posts = await Post.find({ user: req.params.id });
-      const user = await User.findById(req.params.id)
-      res.render("profile.ejs", { posts: posts, user: user });
+      const otherUser = await User.findById(req.params.id)
+      res.render("profile.ejs", { posts: posts, otherUser: otherUser,
+      user: req.user });
     } catch (err) {
       console.log(err);
     }
@@ -25,10 +35,10 @@ module.exports = {
   },
   getPost: async (req, res) => {
     try {
-      console.log(req.user)
       const post = await Post.findById(req.params.id);
       const comments = await Comment.find({post: req.params.id}).sort({ createdAt: "desc" }).lean();
-      res.render("post.ejs", { post: post, user: req.user, comments: comments });
+      const otherUser = await User.findById(post.user)
+      res.render("post.ejs", { post: post, user: req.user, comments: comments, otherUser: otherUser });
     } catch (err) {
       console.log(err);
     }
